@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
 from products.models import Product
 import json
 
@@ -7,8 +8,5 @@ def api_home(request, *args, **kwargs):
     data = {}
 
     if model_data:
-        data['title'] = model_data.title
-        data['description'] = model_data.description
-        data['price'] = model_data.price
-
+        data = model_to_dict(model_data)
     return JsonResponse(data)
