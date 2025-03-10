@@ -12,3 +12,6 @@ class Product(models.Model):
     
     def funny_number(self):
         return 12
+    
+    def __str__(self):
+        return self.title
