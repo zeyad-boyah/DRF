@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import generics
 from products.models import Product
 from products.serializers import ProductSerializer
-
 from django.shortcuts import get_object_or_404 
 
 
@@ -34,7 +33,20 @@ def alt_view_or_create_API(request, pk=None, *args, **kwargs):
     method = request.method
 
     if method == "GET":
+        # retrieve a single object with pk 
         if not pk == None:
             obj = get_object_or_404(Product, pk=pk)
             data = ProductSerializer(obj, many=False).data
             return Response(data)
+        # retrieve the whole thing
+        obj = Product.objects.all()
+        data = ProductSerializer(obj, many=True).data
+        return Response(data)
+    
+    if method == "POST":
+        # create a new instance 
+        serializer = ProductSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status= 201)
+        return Response({"invalid":serializer.errors}, status= 400)
