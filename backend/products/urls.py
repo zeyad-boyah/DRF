@@ -1,10 +1,10 @@
 from django.urls import path
-from products.views import ProductDetailAPIView, ProductCreateAPIView
+from products.views import ProductDetailAPIView, ProductListCreateAPIView
 
 
 urlpatterns = [
     path('<int:pk>/', ProductDetailAPIView.as_view(), name="detail view with primary key"), 
-    path('', ProductCreateAPIView.as_view(), name="Create a new instance of product"), 
+    path('', ProductListCreateAPIView.as_view(), name="list all or Create a new instance of product"), 
 ]
 
 
