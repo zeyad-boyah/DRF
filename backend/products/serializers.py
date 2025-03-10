@@ -14,6 +14,10 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
     def get_the_number(self, obj):
+        if not hasattr(obj, 'id'):
+            return None
+        if not isinstance(obj, Product):
+            return None
         return obj.funny_number()
 
 
