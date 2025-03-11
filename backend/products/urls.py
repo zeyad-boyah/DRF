@@ -1,10 +1,12 @@
 from django.urls import path
-from products.views import ProductDetailAPIView, ProductListCreateAPIView
+from products import views
 
 
 urlpatterns = [
-    path('<int:pk>/', ProductDetailAPIView.as_view(), name="detail view with primary key"), 
-    path('', ProductListCreateAPIView.as_view(), name="list all or Create a new instance of product"), 
+    path('<int:pk>/', views.ProductDetailAPIView.as_view(), name="detail view with primary key"), 
+    path('<int:pk>/update/', views.ProductUpdateAPIView.as_view(), name="update a product with primary key"), 
+    path('<int:pk>/delete/', views.ProductDestroyAPIView.as_view(), name="delete a product with primary key"), 
+    path('', views.ProductListCreateAPIView.as_view(), name="list all or Create a new instance of product"), 
 ]
 
 
