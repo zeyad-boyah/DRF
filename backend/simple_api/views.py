@@ -9,16 +9,14 @@ import json
 
 @api_view(["GET"])
 def api_home(request, *args, **kwargs):
-    model_data =Product.objects.all().order_by("?").first() # get random instances of product 
+    model_data = (
+        Product.objects.all().order_by("?").first()
+    )  # get random instances of product
     data = {}
 
     if model_data:
         serialized_data = ProductSerializer(model_data).data
         return Response(serialized_data)
-
-
-
-
 
     # if model_data:
     #    data = model_to_dict(model_data)
